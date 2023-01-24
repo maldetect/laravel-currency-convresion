@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            \App\Contracts\CurrencyLayer\CurrencyLayerContract::class,
+            \App\Services\CurrencyLayer\CurrencyLayerService::class
+        );
     }
 
     /**
