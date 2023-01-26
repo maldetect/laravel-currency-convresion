@@ -4,6 +4,7 @@ namespace App\Services\CurrencyLayer;
 
 use App\Contracts\CurrencyLayer\CurrencyLayerContract;
 use App\Exceptions\CurrencyLayer\ExceptionHandler;
+use App\Services\CurrencyLayer\Entities\CurrencyChange;
 use App\Services\CurrencyLayer\Entities\CurrencyConvert;
 use App\Services\CurrencyLayer\Entities\CurrencyHistorical;
 use App\Services\CurrencyLayer\Entities\CurrencyList;
@@ -37,6 +38,11 @@ class CurrencyLayerService implements CurrencyLayerContract
     public function getHistorical(string $date, ?string $currencies = null,  ?string $source = 'USD')
     {
         return $this->handle("/historical?date={$date}&currencies={$currencies}&source={$source}", CurrencyHistorical::class);
+    }
+
+    public function getChange(string $start_date, string $end_date, ?string $currencies = null,  ?string $source = 'USD')
+    {
+        return $this->handle("/change?start_date={$start_date}&end_date={$end_date}&currencies={$currencies}&source={$source}", CurrencyChange::class);
     }
 
     private function handle($endpoint, $class_name)

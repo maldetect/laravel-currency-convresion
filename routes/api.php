@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CurrencyController;
+use App\Http\Controllers\Api\ReportRequestController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -23,4 +24,13 @@ Route::prefix('currencies')->as('currencies.')->middleware('auth:sanctum')->grou
     Route::get('/',[CurrencyController::class ,'index'])->name('index');
 
     Route::post('/convert',[CurrencyController::class ,'convert'])->name('convert');
+});
+
+Route::prefix('reports')->as('currencies.')->middleware('auth:sanctum')->group(function(){
+    Route::get('/',[ReportRequestController::class ,'index'])->name('index');
+
+    Route::post('/',[ReportRequestController::class ,'store'])->name('store');
+
+    Route::get('/details/{reportRequest}' ,[ReportRequestController::class ,'details'])->name('details');
+
 });

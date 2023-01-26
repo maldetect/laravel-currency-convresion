@@ -14,14 +14,16 @@ class CurrencyController extends Controller
 {
     public function index(CurrencyLayerContract $currencyLayerService){
         try{
-            $response = $currencyLayerService->getList();
+            cache()->rememberForever('currencies',  function () use ($currencyLayerService){
+                return $currencyLayerService->getList();
+            });
         }catch(ExceptionHandler $e){
             return new ApiErrorResponse($e,$e->getMessage());
         }catch(\Exception $e){
             return new ApiErrorResponse($e,'Sorry, something went wrong!');
         }
 
-        return new ApiSuccessResponse($response,['message' => 'List currencies successful!']);
+        return new ApiSuccessResponse(cache('currencies'),['message' => 'List currencies successful!']);
     }
 
     public function convert(ConvertRequest $request, CurrencyLayerContract $currencyLayerService){

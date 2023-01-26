@@ -11,4 +11,6 @@ interface CurrencyLayerContract
 
     public function getHistorical(string $date, ?string $currencies = null, ?string $source = null);
 
+    public function getChange(string $start_date, string $end_date, ?string $currencies = null,  ?string $source = 'USD');
+
 }
